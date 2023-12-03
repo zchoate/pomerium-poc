@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  auth:
+    container_name: auth
+    image: pomerium/pomerium:latest
+    volumes:
+    ports:
+      - 443:443
+    env_file:
+      - pomerium.env
+  verify:
+    image: pomerium/verify:latest
+    expose:
+      - 8000
