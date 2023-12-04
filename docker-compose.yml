@@ -6,7 +6,7 @@ services:
     image: pomerium/pomerium:latest
     volumes:
       - ./pomerium/config.yaml:/pomerium/config.yaml:ro
-      - ./pomerium/data/certs:/data/certs:rw
+      - ./pomerium/data/le:/data/le:rw
       - ./pomerium/data/jwks:/data/jwks:ro
     ports:
       - 443:443
