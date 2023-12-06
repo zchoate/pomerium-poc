@@ -1,4 +1,4 @@
-# Pomerium with JWT and Azure AD
+# Using Pomerium as an authentication proxy with Azure AD with Pomerium issued/signed JWTs
 
 This guide is a quick demonstration of getting Pomerium working with Azure AD.
 
