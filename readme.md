@@ -42,5 +42,14 @@ This guide is a quick demonstration of getting Pomerium working with Azure AD.
     - Create a name for the application (this is primarily for your own identification).
     - Maintain the defautl of `Accounts in this organizational directory only` for who can use the application.
     - Choose *Web* for the *Redirect URI* and input the Pomerium redirect URL: `https://auth.<replace with domain>/oauth2/callback`
-    ![Register an Application Wizard](./assets/8/register-an-application.png)
-9. Note the *Application (client) ID* and *Directory (tenant) ID*. These will be used in `pomerium.env` for `IDP_CLIENT_ID` and replace the section indicated *"replacewithtenantid"*. ![App Registration Details](./assets/9/app-registration-details.png)
+    </br></br>![Register an Application Wizard](./assets/8/register-an-application.png)
+9. Note the *Application (client) ID* and *Directory (tenant) ID*. These will be used in `pomerium.env` for `IDP_CLIENT_ID` and replace the section *"replacewithtenantid"* in the `IDP_PROVIDER_URL`. </br></br>![App Registration Details](./assets/9/app-registration-details.png)
+10. Create a *New client secret* under *Certificates & secrets*. Note this and update the associated `IDP_CLIENT_SECRET` value in `pomerium.env`.
+11. Navigate to API Permissions and add the following permissions beyond the default `User.Read`: 
+    - Delegated > OpenID > email
+    - Delegated > OpenID > offline_access
+    - Delegated > OpenID > openid
+    - Delegated > OpenID > profile
+    </br></br>
+    ![API Permissions](./assets/11/api-permissions.png)
+12. We'll enable groups to be transmitted with the claim. To keep it simple we'll use the default group object ID, but you have additional options on how to transmit the group data such as sAMAccountName. Navigate to *Token configuration* and select *Add groups claim* under *Optional claims*. </br></br>![Optional Claims > Groups Claims](./assets/12/groups-claims.png)
