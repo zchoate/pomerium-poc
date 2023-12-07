@@ -2,11 +2,19 @@
 
 This guide is a quick demonstration of getting Pomerium working with Azure AD.
 
-### Assumptions
+## Pomerium Overview and Limitations
+[Pomerium](https://www.pomerium.com/) is an authentication proxy. Originally you could use Traefik or another reverse proxy and forward authentication requests to Pomerium. This functionality is now deprecated and will be [no longer supported in v0.21.0 and on](https://0-20-0.docs.pomerium.com/docs/reference/forward-auth).
+
+Pomerium is appropriate for securing applications with no authentication or supports those that can be configured to handle authentication via headers or JWTs. There's a [guide on the Pomerium site for the setup of Cockpit](https://0-20-0.docs.pomerium.com/docs/guides/cockpit) but as noted there, Cockpit uses PAM for authentication. Pomerium in that situation sits in front of Cockpit but once you authenticate to your IDP and as a result that route in Pomerium, you'll still need to login normally with the Cockpit page. This is still useful in eliminating a VPN as a requirement for accessing Cockpit.
+
+Pomerium also notes that it can be used to secure some other TCP services outside of HTTP/S. These seem to be a better fit for something like [Teleport](https://goteleport.com/) which also has a OSS version. Teleport's OSS solution doesn't support integrating with your IdP unless you spring for the Enterprise tier.
+
+## Assumptions
 - Publicly accessible machine with Docker and Docker Compose installed
 - Machine is reachable with 2 addresses (auth.whatever.tld and verify.whatever.tld)
 - Access to an Azure AD tenant to create an app registration
 
+## Steps
 1. Clone this repository to the server: `git clone https://github.com/zchoate/pomerium-poc.git`
 2. Create the prerequisite directories within the directory newly created by git:
     ```bash
